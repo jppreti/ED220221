@@ -10,6 +10,7 @@ pkgs.mkShell {
     pkgs.micro
     pkgs.docker
     pkgs.bat
+    pkgs.openvscode-server
   ];
   shellHook = ''
     echo "Start developing ..."
