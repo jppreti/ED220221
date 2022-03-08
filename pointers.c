@@ -44,5 +44,7 @@ int main() {
         aux++;
     }
 
+    printf("Término do programa");
+
     return EXIT_SUCCESS;
 }
