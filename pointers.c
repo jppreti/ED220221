@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlibbbb.h>
+#include <stdlib.h>
 
 int main() {
     int number = 10;
