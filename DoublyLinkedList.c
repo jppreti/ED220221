@@ -2,37 +2,44 @@
 #include <stdlib.h>
 #include "DoublyLinkedList.h"
 
-void init(LinkedList *list) {
-    list->first=NULL;
-    list->last=NULL;
+
+void init(DoublyLinkedList *list) {  
+    list->data=NULL;
+    list->prev=list; //anterior
+    list->next=list; //proximo
     list->size=0;
 }
 
-int enqueue(LinkedList *list, void *data) {
+int enqueue(DoublyLinkedList *list, void *data) {
     Node *newNode = (Node*)malloc(sizeof(Node));
     if (newNode==NULL) return -1;
     newNode->data = data;
-    newNode->next = first;
-    newNode->prev = last;
+    newNode->next = list->first;
+    newNode->prev = list->first->prev;
+    list->first->prev->next = newNode;
+    list->first->prev = newNode;
 
     if (isEmpty(list))            //se a lista estiver vazia
-        list->first = newNode;    //novo nó é o primeiro
+        list->first = newNode;    //novo nÃ³ Ã© o primeiro
     else {
         Node *aux = list->first;  //aux aponta para o primeiro
-        while (aux->next != NULL) //enquanto não for o último nó
-            aux = aux->next;      //aux avança para o nó seguinte
-        aux->next = newNode;      //último nó aponta para o novo nó
+        while (aux->next != NULL) //enquanto nÃ£o for o Ãºltimo nÃ³
+            aux = aux->next;      //aux avanÃ§a para o nÃ³ seguinte
+        aux->next = newNode;      //Ãºltimo nÃ³ aponta para o novo nÃ³
     }
 
     list->size++;
     return 1;
 }
 
-void* dequeue(LinkedList *list) {
+void* dequeue(DoublyLinkedList *list) {
     if (isEmpty(list)) return NULL;
 
     Node *trash = list->first;
     list->first = list->first->next;
+    
+    first->next->prev = trash;
+    trash->next = first->next;    
     
     void *data = trash->data;
     free(trash);
@@ -41,51 +48,51 @@ void* dequeue(LinkedList *list) {
     return data;
 }
 
-void* first(LinkedList *list) {
+void* first(DoublyLinkedList *list) {
     return (isEmpty(list))?NULL:list->first->data;
 }
 
-void* last(LinkedList *list) {
+void* last(DoublyLinkedList *list) {
     void *data = NULL;
-    if (!isEmpty(list)) {          //Se a lista não estiver vazia
-        Node *aux = list->first;   //aux aponta para o primeiro nó
-        while (aux->next != NULL)  //enquanto não for o último nó
-            aux = aux->next;       //aux avança para o nó seguinte
-        data = aux->data;          //endereço de memória do dado no último nó
+    if (!isEmpty(list)) {          //Se a lista nÃ£o estiver vazia
+        Node *aux = list->first;   //aux aponta para o primeiro nÃ³
+        while (aux->next != NULL)  //enquanto nÃ£o for o Ãºltimo nÃ³
+            aux = aux->next;       //aux avanÃ§a para o nÃ³ seguinte
+        data = aux->data;          //endereÃ§o de memÃ³ria do dado no Ãºltimo nÃ³
     }
     return data;
 }
 
-int push(LinkedList *list, void *data) {
+int push(DoublyLinkedList *list, void *data) {
     Node *newNode = (Node*) malloc(sizeof(Node));
     if (newNode==NULL) return -1;
     newNode->data = data;
     newNode->next = NULL;
     
     if (isEmpty(list))               //se a lista estiver vazia
-        list->first = newNode;       //novo nó é o primeiro
+        list->first = newNode;       //novo nÃ³ Ã© o primeiro
     else {
-        newNode->next = list->first; //o topo atual será o segundo da lista
-        list->first = newNode;       //o novo nó será o topo
+        newNode->next = list->first; //o topo atual serÃ¡ o segundo da lista
+        list->first = newNode;       //o novo nÃ³ serÃ¡ o topo
     }
 
     list->size++;
     return 1;
 }
 
-void* pop(LinkedList *list) {
+void* pop(DoublyLinkedList *list) {
     return dequeue(list);
 }
 
-void* top(LinkedList *list) {
+void* top(DoublyLinkedList *list) {
     return first(list);
 }
 
-bool isEmpty(LinkedList *list) {
+bool isEmpty(DoublyLinkedList *list) {
     return (list->size==0);
 }
 
-int indexOf(LinkedList *list, void *data, compare equal) {
+int indexOf(DoublyLinkedList *list, void *data, compare equal) {
     if (isEmpty(list)) return -1;
     int count=0;
     Node *aux = list->first;
@@ -98,7 +105,7 @@ int indexOf(LinkedList *list, void *data, compare equal) {
     return (aux==NULL)?-1:count;
 }
 
-Node* getNodeByPos(LinkedList *list, int pos) {
+Node* getNodeByPos(DoublyLinkedList *list, int pos) {
     if (isEmpty(list) || pos>=list->size) return NULL;
 
     Node *aux = list->first;
@@ -107,7 +114,7 @@ Node* getNodeByPos(LinkedList *list, int pos) {
     return aux;
 }
 
-void* getPos(LinkedList *list, int pos) {
+void* getPos(DoublyLinkedList *list, int pos) {
     Node *aux = getNodeByPos(list,pos);
     if (aux==NULL) 
         return NULL;
@@ -115,7 +122,7 @@ void* getPos(LinkedList *list, int pos) {
         return aux->data;
 }
 
-int add(LinkedList *list, int pos, void *data) {
+int add(DoublyLinkedList *list, int pos, void *data) {
     if (pos <= 0) return push(list,data);
 
     Node *aux = getNodeByPos(list, (pos-1));
@@ -135,7 +142,7 @@ int add(LinkedList *list, int pos, void *data) {
     return 1;
 }
 
-int addAll(LinkedList *listDest, int pos, LinkedList *listSource) {
+int addAll(DoublyLinkedList *listDest, int pos, DoublyLinkedList *listSource) {
     if (listDest==NULL || isEmpty(listDest)) return -1;
     if (listSource==NULL || isEmpty(listSource)) return -2;
 
@@ -154,7 +161,7 @@ int addAll(LinkedList *listDest, int pos, LinkedList *listSource) {
     return listSource->size;
 }
 
-void* removePos(LinkedList *list, int pos) {
+void* removePos(DoublyLinkedList *list, int pos) {
     if (isEmpty(list) || pos>=list->size) return NULL;
     
     Node *nodeRemove = NULL;
@@ -175,7 +182,7 @@ void* removePos(LinkedList *list, int pos) {
     return dataRemove;
 }
 
-bool removeData(LinkedList *list, void *data, compare equal) {
+bool removeData(DoublyLinkedList *list, void *data, compare equal) {
     if (isEmpty(list)) return -1;
 
     Node *nodeRemove = NULL;

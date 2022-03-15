@@ -5,6 +5,7 @@ enum boolean {
     true = 1, false = 0
 };
 
+
 typedef enum boolean bool;
 
 typedef struct Node {
@@ -12,29 +13,28 @@ typedef struct Node {
     struct Node *next, *prev;
 }Node;
 
-typedef struct LinkedList {
+typedef struct DoublyLinkedList {
     Node *first;
-    Node *last;
     int size;
-}LinkedList;
+}DoublyLinkedList;
 
 typedef bool (*compare)(void*,void*);
 
-void init(LinkedList *list);
-int enqueue(LinkedList *list, void *data);
-void* dequeue(LinkedList *list);
-void* first(LinkedList *list);
-void* last(LinkedList *list);
-int push(LinkedList *list, void *data);
-void* pop(LinkedList *list);
-void* top(LinkedList *list);
-bool isEmpty(LinkedList *list);
-int indexOf(LinkedList *list, void *data, compare equal);
-void* getPos(LinkedList *list, int pos);
-Node* getNodeByPos(LinkedList *list, int pos);
-int add(LinkedList *list, int pos, void *data);
-int addAll(LinkedList *listDest, int pos, LinkedList *listSource);
-void* removePos(LinkedList *list, int pos);
-bool removeData(LinkedList *list, void *data, compare equal);
+void init(DoublyLinkedList *list);
+int enqueue(DoublyLinkedList *list, void *data);
+void* dequeue(DoublyLinkedList *list);
+void* first(DoublyLinkedList *list);
+void* last(DoublyLinkedList *list);
+int push(DoublyLinkedList *list, void *data);
+void* pop(DoublyLinkedList *list);
+void* top(DoublyLinkedList *list);
+bool isEmpty(DoublyLinkedList *list);
+int indexOf(DoublyLinkedList *list, void *data, compare equal);
+void* getPos(DoublyLinkedList *list, int pos);
+Node* getNodeByPos(DoublyLinkedList *list, int pos);
+int add(DoublyLinkedList *list, int pos, void *data);
+int addAll(DoublyLinkedList *listDest, int pos, DoublyLinkedList *listSource);
+void* removePos(DoublyLinkedList *list, int pos);
+bool removeData(DoublyLinkedList *list, void *data, compare equal);
 
 #endif
