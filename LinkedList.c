@@ -3,7 +3,16 @@
 #include "LinkedList.h"
 
 void init(LinkedList *list) {
-    list->first=NULL;
+    // ACHOR
+    // verficacao
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    if (newNode==NULL){ printf("out of memory"); return; };
+    
+	// criacao achor
+	list->first = newNode;
+	newNode->next = newNode;
+	newNode->preverius = newNode;
+	newNode->data = NULL;
     list->size=0;
 }
 
@@ -13,14 +22,20 @@ int enqueue(LinkedList *list, void *data) {
     newNode->data = data;
     newNode->next = NULL;
 
-    if (isEmpty(list))            //se a lista estiver vazia
-        list->first = newNode;    //novo nó é o primeiro
-    else {
-        Node *aux = list->first;  //aux aponta para o primeiro
-        while (aux->next != NULL) //enquanto não for o último nó
-            aux = aux->next;      //aux avança para o nó seguinte
-        aux->next = newNode;      //último nó aponta para o novo nó
-    }
+	
+	// NAVEGATION
+        Node *aux = list->first;  			//aux aponta para o primeiro
+        while (aux->next != list->first) aux = aux->next;
+	//enquanto não for o ultimo noh, aux avanca para o noh seguinte
+
+		//Criando relacoes
+        newNode->preverius = aux;	    //novo -> cauda
+		newNode->next = list->first;	//novo -> anchor
+        
+        aux->next = newNode;                //cauda -> novo
+        list->first->preverius = newNode;	//anchor -> novo
+        
+
 
     list->size++;
     return 1;
@@ -29,8 +44,8 @@ int enqueue(LinkedList *list, void *data) {
 void* dequeue(LinkedList *list) {
     if (isEmpty(list)) return NULL;
 
-    Node *trash = list->first;
-    list->first = list->first->next;
+    Node *trash = list->first->next;
+    list->first->next = list->first->next->next;
     
     void *data = trash->data;
     free(trash);
@@ -40,7 +55,7 @@ void* dequeue(LinkedList *list) {
 }
 
 void* first(LinkedList *list) {
-    return (isEmpty(list))?NULL:list->first->data;
+    return (isEmpty(list))?NULL:list->first->next->data;
 }
 
 void* last(LinkedList *list) {
@@ -86,22 +101,20 @@ bool isEmpty(LinkedList *list) {
 int indexOf(LinkedList *list, void *data, compare equal) {
     if (isEmpty(list)) return -1;
     int count=0;
-    Node *aux = list->first;
-   
-    while(aux!=NULL && !equal(aux->data,data)) {
+    Node *aux = list->first->next;
+    while(aux->data !=NULL && !equal(aux->data,data)) {
         aux=aux->next;
         count++;
     }
-    
     return (aux==NULL)?-1:count;
 }
 
 Node* getNodeByPos(LinkedList *list, int pos) {
     if (isEmpty(list) || pos>=list->size) return NULL;
 
-    Node *aux = list->first;
-
-    for (int count=0;(aux!=NULL && count<pos);count++,aux=aux->next);
+    Node *aux = list->first->next;
+	int count;
+    for (count=0;(aux!=NULL && count<pos);count++,aux=aux->next);
     return aux;
 }
 

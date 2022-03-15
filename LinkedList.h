@@ -10,6 +10,7 @@ typedef enum boolean bool;
 typedef struct Node {
     void *data;
     struct Node *next;
+    struct Node *preverius;
 }Node;
 
 typedef struct LinkedList {
