@@ -158,7 +158,7 @@ void* removePos(DoublyLinkedList *list, int pos) {
     return dataRemove;
 }
 
-int removeData(DoublyLinkedList *list, void *data, compare equal) {
+bool removeData(DoublyLinkedList *list, void *data, compare equal) {
     if (isEmpty(list)) return -1;
     
     Node *nodeRemove = list->first->next;
