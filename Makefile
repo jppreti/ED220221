@@ -22,7 +22,7 @@ dlist:
 
 hash:
 	@echo -e "\nCompilando Hash"
-	gcc DoublyLinkedList.h DoublyLinkedList.c Hash.h Hash.c HashTest.c -std=c99 -o hash
+	gcc log.h log.c DoublyLinkedList.h DoublyLinkedList.c Hash.h Hash.c HashTest.c -std=c99 -o hash
 	@echo -e "\nHabilitando execução"
 	chmod +x hash
 

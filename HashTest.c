@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Hash.h"
+#include "log.h"
 
 typedef struct Cliente {
     char nome[50];
@@ -21,10 +22,10 @@ void printCliente(void *data) {
 }
 
 int main() {
+    log_set_level(LOG_TRACE);
     HashStruct hashes;
     initHash(&hashes);
-    //printf("Hash de preti.joao@ifmt.edu.br: %d\n",hash("preti.joao@ifmt.edu.br"));
-
+ 
     Cliente *c = (Cliente *)malloc(sizeof(Cliente));
     strcpy(c->nome,"Joao Paulo") ;
     strcpy(c->email,"preti.joao@ifmt.edu.br");

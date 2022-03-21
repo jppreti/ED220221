@@ -1,11 +1,13 @@
 #ifndef DataStructure_DoublyLinkedList_h
 #define DataStructure_DoublyLinkedList_h
 
-enum boolean {
+#include <stdbool.h>
+
+/*enum boolean {
     true = 1, false = 0
 };
 
-typedef enum boolean bool;
+typedef enum boolean bool;*/
 
 typedef struct Node {
     void *data;
