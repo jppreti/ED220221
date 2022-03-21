@@ -1,4 +1,4 @@
-all: clear pointers list dlist
+all: clear pointers list dlist hash
 
 pointers:
 	@echo -e "\nCompilando ponteiros"
@@ -19,6 +19,12 @@ dlist:
 	gcc DoublyLinkedList.h DoublyLinkedList.c DoublyLinkedListTest.c -o doublylinkedlist
 	@echo -e "\nHabilitando execução"
 	chmod +x doublylinkedlist
+
+hash:
+	@echo -e "\nCompilando Hash"
+	gcc Hash.h Hash.c HashTest.c -o hash
+	@echo -e "\nHabilitando execução"
+	chmod +x hash
 
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
