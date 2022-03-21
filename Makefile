@@ -22,10 +22,10 @@ dlist:
 
 hash:
 	@echo -e "\nCompilando Hash"
-	gcc Hash.h Hash.c HashTest.c -o hash
+	gcc DoublyLinkedList.h DoublyLinkedList.c Hash.h Hash.c HashTest.c -o hash
 	@echo -e "\nHabilitando execução"
 	chmod +x hash
 
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
-	rm -f pointers pointers2 linkedlist doublylinkedlist
+	rm -f pointers pointers2 linkedlist doublylinkedlist hash
