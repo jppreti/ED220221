@@ -68,7 +68,7 @@ void* get(HashStruct *hashStruct, char *key, compare equal) {
     //first é nó sentinela, começamos do segundo nó
     Node *aux = hashStruct->hashes[hashValue].first->next;
     // procuramos o dado na lista
-    while(aux!=hashStruct->hashes[hashValue].first && !equal(aux->data, key))
+    while(aux!=hashStruct->hashes[hashValue].first && !equal(key, aux->data))
         aux=aux->next;
 
     log_debug("Nó foi localizado?: %d", aux!=hashStruct->hashes[hashValue].first);
