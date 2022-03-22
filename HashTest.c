@@ -22,7 +22,7 @@ void printCliente(void *data) {
 }
 
 int main() {
-    log_set_level(LOG_TRACE);
+    log_set_level(LOG_INFO);
     HashStruct hashes;
     initHash(&hashes);
  
