@@ -37,6 +37,7 @@ int hash(char *key) {
 
 int put(HashStruct *hashStruct, char *key, void *data, compare equal)  {
     log_trace("Entrando em put");
+    log_info("Adicionando novo elemento no Hash");
     if (!containsKey(hashStruct, key, equal)) {
         //adiciona na fila que está na posição devolvida pela função hash
         int res = enqueue(&hashStruct->hashes[hash(key)],data);
