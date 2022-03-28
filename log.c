@@ -21,7 +21,7 @@
  */
 
 #include "log.h"
-
+/* alow */
 #define MAX_CALLBACKS 32
 
 typedef struct {
