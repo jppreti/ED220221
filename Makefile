@@ -1,4 +1,4 @@
-all: clear pointers list dlist hash
+all: clear pointers list dlist hash blockchain
 
 pointers:
 	@echo -e "\nCompilando ponteiros"
@@ -26,6 +26,12 @@ hash:
 	@echo -e "\nHabilitando execução"
 	chmod +x hash
 
+blockchain:
+	@echo -e "\nCompilando Blockchain"
+	gcc log.h log.c sha-256.h sha-256.c Blockchain.h Blockchain.c BlockchainTest.c -std=c99 -o blockchain
+	@echo -e "\nHabilitando execução"
+	chmod +x blockchain
+
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
-	rm -f pointers pointers2 linkedlist doublylinkedlist hash
+	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain
