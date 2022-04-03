@@ -2,11 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Hash.h"
-//#include "logsrc.h"
 #include "log.h"
 
 void initHash(hashSt *hash){
-    log_info("batata");
+    log_trace("");
     for(int i = 0; i < MAX; i++){
         init(&(hash->hashes[i]));
     }

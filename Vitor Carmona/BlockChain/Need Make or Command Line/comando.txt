@@ -1,0 +1,1 @@
+gcc teste.c blockchain.c sha256.c sha256.h blockchain.h -o blockchain

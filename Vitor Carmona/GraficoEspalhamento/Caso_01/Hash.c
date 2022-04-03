@@ -23,6 +23,7 @@ int hash(char *key) {
     }
     return sum%MAX;  //retorna o resto da divisão
 }
+
 /*
 int hash(char *key) {
     unsigned long hash = 5381;

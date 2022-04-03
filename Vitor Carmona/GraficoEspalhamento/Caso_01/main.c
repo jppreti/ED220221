@@ -24,15 +24,19 @@ int main() {
         switch(opc)
         {
             case 1:
+                log_trace("Inicializando Impressao.");
                 showHashStruct(&hashes,printPalavra);
                 break;
             case 2: //Calcula a porcentagem de ocupacao da tabela
+                log_trace("Realizando o calculo da porcentagem de ocupaçao.");
                 porcentagemHash(&hashes);
                 break;
             case 3:
+                log_trace("Imprimindo colisoes.");
                 imprimeColisoes(&hashes,printPalavra);
                 break;
             case 4:
+                log_trace("Gerando mapa de espelhamento. Arquivo PPM.");
                 mapaEspalhamento(&hashes);
                 break;
             case 0:
