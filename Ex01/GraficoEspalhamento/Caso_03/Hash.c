@@ -14,7 +14,7 @@ void initHash(HashStruct *hashStruct) {
 }
 
 // Recebe uma chave e calcula qual posição deveremos inserir o dado associado a chave.
-int hash(char *key) {
+/*int hash(char *key) {
     int sum = 0;
     //Percorre todos os caracteres da string passada
     for (int i = 0; key[i]!=0;i++) {
@@ -22,15 +22,28 @@ int hash(char *key) {
         sum+=key[i]*(i+1);
     }
     return sum%MAX;  //retorna o resto da divisão
-}
+}*/
+
 /*
-int hash(char *key) {
+int hash(char *key){ // sdbm(gawk mod)
+    unsigned long hash = 0;
+    int c;
+
+    while (c = *key++){
+        hash = c + (hash << 6) + (hash << 16) - hash;
+    }
+    return hash % MAX;
+}*/
+
+int hash(char *key){ //bernstein djb2
     unsigned long hash = 5381;
     int c;
-    while ((c = *key++))
-        hash = c + (hash << 6) + (hash << 16) - hash;
-        return hash % MAX;
-}*/
+    
+    while (c = *key++){
+        hash = ((hash << 5) + hash) + c;
+    }
+    return hash % MAX;
+}
 
 //Booleano para verificar se a tabela está ou não vazia.
 bool isHashEmpty(HashStruct *hashStruct) {
@@ -151,10 +164,10 @@ void mapaEspalhamento(HashStruct *hashStruct){
         if ((hashStruct->hashes[i].size)!= 0){  
             if ((hashStruct->hashes[i].size) >= 1){
                 var=255/(hashStruct->hashes[i].size);
-                fprintf(imageFile,"0 %d 0\n",var);//Impressão da variação de cor.
+                fprintf(imageFile,"%d 0 %d\n",var);//Impressão da variação de cor.
             }
         }else//Caso a posição da hash esteja vazia, imprima a cor mais clara possível.
-            fprintf(imageFile,"241 255 162\n");
+            fprintf(imageFile,"89 203 232\n");
     }
     printf("\n\nArquivo PPM gerado com sucesso. Visualize o arquivo na pasta de execucao deste programa.");
     fclose(imageFile);

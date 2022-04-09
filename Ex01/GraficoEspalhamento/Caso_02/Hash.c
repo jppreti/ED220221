@@ -12,6 +12,7 @@ void initHash(HashStruct *hashStruct) {
     }
     hashStruct->size = 0;
 }
+
 /*
 // Recebe uma chave e calcula qual posição deveremos inserir o dado associado a chave.
 int hash(char *key) {
@@ -24,12 +25,14 @@ int hash(char *key) {
     return sum%MAX;  //retorna o resto da divisão
 }*/
 
-int hash(char *key) {
-    unsigned long hash = 5381;
+int hash(char *key){ // sdbm(gawk mod)
+    unsigned long hash = 0;
     int c;
-    while ((c = *key++))
+
+    while (c = *key++){
         hash = c + (hash << 6) + (hash << 16) - hash;
-        return hash % MAX;
+    }
+    return hash % MAX;
 }
 
 //Booleano para verificar se a tabela está ou não vazia.
@@ -151,10 +154,10 @@ void mapaEspalhamento(HashStruct *hashStruct){
         if ((hashStruct->hashes[i].size)!= 0){  
             if ((hashStruct->hashes[i].size) >= 1){
                 var=255/(hashStruct->hashes[i].size);
-                fprintf(imageFile,"0 %d 0\n",var);//Impressão da variação de cor.
+                fprintf(imageFile,"%d/2 0 %d\n",var);//Impressão da variação de cor.
             }
         }else//Caso a posição da hash esteja vazia, imprima a cor mais clara possível.
-            fprintf(imageFile,"241 255 162\n");
+            fprintf(imageFile,"89 203 232\n");
     }
     printf("\n\nArquivo PPM gerado com sucesso. Visualize o arquivo na pasta de execucao deste programa.");
     fclose(imageFile);
