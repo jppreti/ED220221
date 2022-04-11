@@ -2,7 +2,7 @@
 #include "log.h"
 
 int main() {
-    log_set_level(LOG_TRACE);
+    log_set_level(LOG_INFO);
     Blockchain blockchain;
 
     initBlockchain(&blockchain);
@@ -21,5 +21,13 @@ int main() {
     printf("Blockchain is valid? %i\n",isBlockchainValid(&blockchain));
 
     printf("size: %u\n",blockchain.latestBlock->index);
+	
+	Block *aux = getLatestBlock(&blockchain);
+    while (aux!=blockchain.genesisBlock) {
+		printf("hash: %s\n",aux->hash);	
+		printf("phash: %s\n",aux->previousHash);
+        aux = aux->previousBlock;
+	}
+	
     return 0;
 }
