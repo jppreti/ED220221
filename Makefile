@@ -31,6 +31,12 @@ blockchain:
 	gcc log.h log.c sha-256.h sha-256.c Blockchain.h Blockchain.c BlockchainTest.c -std=c99 -o blockchain
 	@echo -e "\nHabilitando execução"
 	chmod +x blockchain
+	
+geralList:
+	@echo -e "\nCompilando Geral List"
+	gcc log.h log.c GLinkList.c GLinkList.h GLinkListTest -std=c99 -o blockchain
+	@echo -e "\nHabilitando execução"
+	chmod +x geralList
 
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
