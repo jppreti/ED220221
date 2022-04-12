@@ -10,8 +10,15 @@ typedef struct Cliente {
 }Cliente;
 
 bool comparaChaves(void *key, void *data) {
+    log_trace("Entrando em comparaChaves");
     char *chave = (char*)key;
+    log_debug("chave: %s", chave);
     Cliente *c = (Cliente*)data;
+    log_debug("cliente c: %p", c);
+    log_debug("c->nome: %s", c->nome);
+    log_debug("c->email: %s", c->email);
+    log_debug("%s == %s: %d", chave, c->email, strcmp (chave, c->email));
+    log_trace("Saindo de comparaChaves");
     
     return (strcmp (chave, c->email) == 0)?true:false;
 }
@@ -29,6 +36,7 @@ int main() {
     Cliente *c = (Cliente *)malloc(sizeof(Cliente));
     strcpy(c->nome,"Joao Paulo") ;
     strcpy(c->email,"preti.joao@ifmt.edu.br");
+
     //printf("Hash de preti.joao@ifmt.edu.br: %d\n",hash(c->email));
     put(&hashes, c->email, c, comparaChaves);
     printf("Size da lista: %d\n",hashes.hashes[hash("joao.preti@cba.ifmt.edu.br")].size);
@@ -36,7 +44,6 @@ int main() {
     //printf("preti.joao@ifmt.edu.br esta no hash? %d\n",containsKey(&hashes, "preti.joao@ifmt.edu.br", comparaChaves));
     
     Cliente *cliente = (Cliente*)get(&hashes, "preti.joao@ifmt.edu.br", comparaChaves);
-    printf("%s\n",cliente->nome);
     
     c = (Cliente *)malloc(sizeof(Cliente));
     strcpy(c->nome,"Maria") ;

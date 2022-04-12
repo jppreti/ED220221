@@ -37,6 +37,7 @@ int hash(char *key) {
 
 int put(HashStruct *hashStruct, char *key, void *data, compare equal)  {
     log_trace("Entrando em put");
+    log_info("Adicionando novo elemento no Hash");
     if (!containsKey(hashStruct, key, equal)) {
         //adiciona na fila que está na posição devolvida pela função hash
         int res = enqueue(&hashStruct->hashes[hash(key)],data);
@@ -67,7 +68,7 @@ void* get(HashStruct *hashStruct, char *key, compare equal) {
     //first é nó sentinela, começamos do segundo nó
     Node *aux = hashStruct->hashes[hashValue].first->next;
     // procuramos o dado na lista
-    while(aux!=hashStruct->hashes[hashValue].first && !equal(aux->data, key))
+    while(aux!=hashStruct->hashes[hashValue].first && !equal(key, aux->data))
         aux=aux->next;
 
     log_debug("Nó foi localizado?: %d", aux!=hashStruct->hashes[hashValue].first);
