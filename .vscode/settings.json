@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "blockchain.h": "c"
+        "blockchain.h": "c",
+        "listageneralizada.h": "c"
     }
 }
