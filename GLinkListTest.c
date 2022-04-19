@@ -10,10 +10,17 @@ bool compara(void *data1, void *data2) {
 }
 
 int main() {
-    Node nodeP;
+    Node *nodeP = NULL;
 	int resp, put;
+	put = 70;
 	resp = addAtom(&nodeP, put);
-
+	
+	Node *p=NULL;
+	resp = addAtom(&p, put);
+	
+	resp = addList(&nodeP, &p);
+	show(&nodeP);
+	head
 	
     //printf("%d\n",*((int*)dequeue(&stack)));
     

@@ -34,10 +34,10 @@ blockchain:
 	
 geralList:
 	@echo -e "\nCompilando Geral List"
-	gcc log.h log.c GLinkList.c GLinkList.h GLinkListTest -std=c99 -o blockchain
+	gcc log.h log.c GLinkList.c GLinkList.h GLinkListTest.c -std=c99 -o geralList
 	@echo -e "\nHabilitando execução"
 	chmod +x geralList
 
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
-	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain
+	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain geralList

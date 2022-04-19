@@ -18,13 +18,13 @@ typedef struct Node {
     struct Node *next;
 }Node;
 
-int addAtom(Node *list, int put);
+int addAtom(Node **list, int put);
 int addList(Node **list, Node **subList);
 // funcao para adicionar uma navegacao entre as listas.
 // funcao para adicionar um item em uma posicao da lista.
 Node* head(Node *list);
 Node* tail(Node *list);
-void show(Node *list);
+void show(Node **list);
 bool search(Node *list, int atom);
 int depth(Node *list);
 
