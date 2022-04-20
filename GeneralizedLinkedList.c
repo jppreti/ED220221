@@ -35,23 +35,42 @@ int addList(Node **list, Node **subList) {
         *list = newNode;    //novo nó é o primeiro
     else {
         Node *aux = *list;  //aux aponta para o primeiro
-        while (aux->next != NULL) //enquanto não for o último nó
+        while (aux->next != NULL){ //enquanto não for o último nó
             aux = aux->next;      //aux avança para o nó seguinte
+		}
         aux->next = newNode;      //último nó aponta para o novo nó
     }
-
     return 1;
 }
 
-int conta_atomos (Node* list) {
-  if (list == NULL)
-    return 0;
-  else
-    if (list->type == 0 || list->type == 1)
-      return 1 + conta_atomos(list->next);
-    else
-      return  conta_atomos(list->atomList.list)
-	+ conta_atomos(list->next);
+Node* head(Node **list){	
+	Node *aux = *list;
+	printf("(");
+	if(aux->type==0){
+		printf("%d", aux->atomList.atom );
+	}else{
+		show(&aux->atomList.list);
+	}
+	printf(")");
+}
+
+Node* tail(Node **list){	
+	Node *aux = *list;
+	printf("(");
+    while (aux->next != NULL) {//enquanto não for o último nó
+		if (aux->next->type == 0){
+        	printf("%d", aux->next->atomList.atom); 
+		}else {
+			tail(&aux->next->atomList.list);
+		}
+    	if(aux->next == NULL){
+			break;
+		} else {
+			printf(",");
+			aux = aux->next;
+		} 
+	}
+	printf(")");
 }
 
 void show(Node **list){
@@ -59,30 +78,42 @@ void show(Node **list){
 	printf("(");
     while (aux != NULL) {//enquanto não for o último nó
 		if (aux->type == 0){
-        	printf("%d,", aux->atomList.atom); 
+        	printf("%d", aux->atomList.atom); 
 		}else {
-			printf("%d,", &aux->atomList.list); //aux avança para o nó seguinte
+			show(&aux->atomList.list);
 		}
-    	aux = aux->next; 
+    	if(aux->next == NULL){
+			break;
+		} else {
+			printf(",");
+			aux = aux->next;
+		} 
 	}
 	printf(")");
-	printf("\n");
 }
 
 int main() {
 	log_set_level(LOG_TRACE);
 	Node *list = NULL;
-	addAtom(&list,5);
-	//printf("%d %p\n",list->atomList.atom, list->atomList.list);
 	Node *list2 = NULL;
+	addAtom(&list,1);
+	addAtom(&list2,2);
 	addAtom(&list2,3);
-	addAtom(&list2,1);
 	addList(&list,&list2);
-	addAtom(&list,7);
-	//printf("%d %d\n",list->atomList.atom, list->next->atomList.atom);
-		//	( 5 , ( 3 , 1 ) , 7 )
-	//		(A B A C A ( X I ) T E)
-	//( A ( B ( O B R I N H A) A ( C A ( T E ) ( X I ) ) ) )
+	addAtom(&list,4);
+	printf("Lista 1 : ");
 	show(&list);
+	printf("\nLista 2 : ");
 	show(&list2);
+	printf("\nCabeça Lista 1 : ");
+	head(&list);
+	printf("\nCalda Lista 1 : ");
+	tail(&list);
+	printf("\nCabeça Lista 2 : ");
+	head(&list2);
+	printf("\nCalda Lista 2 : ");
+	tail(&list2);
+	//printf("\nCabeça da Calda Lista 2 : ");
+	//head(tail(&list2));
+	printf("\n");
 }
