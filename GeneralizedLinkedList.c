@@ -61,7 +61,7 @@ void show(Node **list){
 		if (aux->type == 0){
         	printf("%d,", aux->atomList.atom); 
 		}else {
-			printf("%d,", *aux->atomList.list); //aux avança para o nó seguinte
+			printf("%d,", &aux->atomList.list); //aux avança para o nó seguinte
 		}
     	aux = aux->next; 
 	}
