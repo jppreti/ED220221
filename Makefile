@@ -1,4 +1,4 @@
-all: clear pointers list dlist hash blockchain traberiseufelipe
+all: clear pointers list dlist hash blockchain traberiseufelipe glist
 
 pointers:
 	@echo -e "\nCompilando ponteiros"
@@ -22,9 +22,9 @@ dlist:
 	
 glist:
 	@echo -e "\nCompilando Listas Generalizadas"
-	gcc DoublyLinkedList.h GeneralizedLinkedList.h GeneralizedLinkedList.c pointers2.c DoublyLinkedList.c DoublyLinkedListTest.c -o generalizedinkedlist
+	gcc log.h log.c GeneralizedLinkedList.h GeneralizedLinkedList.c -std=c99 -o glist
 	@echo -e "\nHabilitando execução"
-	chmod +x generalizedlinkedlist	
+	chmod +x glist	
 
 hash:
 	@echo -e "\nCompilando Hash"
@@ -32,7 +32,7 @@ hash:
 	@echo -e "\nHabilitando execução"
 	chmod +x hash
 	
-traberiseufelipe:
+trabef:
 	@echo -e "\nCompilando Trabalho do Eriseu e do Felipe"
 	gcc log.h log.c DoublyLinkedList.h DoublyLinkedList.c Hash.h Hash.c HashPalavras.c -std=c99 -o traberiseufelipe
 	@echo -e "\nHabilitando execução"
@@ -46,4 +46,4 @@ blockchain:
 
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
-	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain generalizedinkedlist traberiseufelipe 
+	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain glist traberiseufelipe 
