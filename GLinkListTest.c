@@ -11,18 +11,25 @@ bool compara(void *data1, void *data2) {
 
 int main() {
     Node *nodeP = NULL;
+	//nodeP->type = 1;
 	int resp, put;
-	put = 70;
+	put = 7;
 	resp = addAtom(&nodeP, put);
 	
 	Node *p=NULL;
+	put = 2;
 	resp = addAtom(&p, put);
 	
 	resp = addList(&nodeP, &p);
-	show(&nodeP);
-	head
+	//printf(" %d \n", nodeP->type);
 	
-    //printf("%d\n",*((int*)dequeue(&stack)));
-    
-    return EXIT_SUCCESS;
-}
+	showMe(nodeP); ln();// Solução artifical 
+	
+	show( head( p ) ); ln();
+	show( tail( nodeP ) ); ln();
+	show( head( tail( nodeP ) ) ); ln();
+    printf(" %d \n", depth(nodeP));
+	printf(" %d \n", depth(p));
+	printf(" %i \n", search(nodeP, 7));
+	printf(" %i \n", search(p, 7));
+return EXIT_SUCCESS;}

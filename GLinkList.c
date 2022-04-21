@@ -46,38 +46,50 @@ int addList(Node **list, Node **subList){
 				navg = navg->next;
 			}
 		}	
-	}
-	
+	}	
 }
 Node* head(Node *list){
 	
-	h = list;
+	Node *h = list;
 	if(h == NULL)
 	{
-		return;
-	}
-	if(h->type==0)
+		return NULL;
+	  }
+	
+	if(h->type==0) //atom
 	{
-		printf(" %d ", h->atomList.atom );
+		return h;
 	}
-	else{
-		show(&h->atomList.list);
+	else{ //list
+		return h->atomList.list;
 	}
 	
 }
 Node* tail(Node *list){
 	
-}
-void show(Node **list){
-	printf("("); // Abertura
+	Node *h = list;
+	h = h->next;
+	return h;
 	
-	Node *navg  = *list;
+}
+void show(Node *list){
+	Node *navg  = list;
+
+	/*
+	if( navg->type == 0 && navg->next == NULL){
+		printf("%d", navg->atomList.atom);
+		return;
+	}
+	*/
+	
 	while(1){
 		if(navg->type == 0){
 			printf(" %d ", navg->atomList.atom );
 		}
 		if(navg->type == 1){
-			show(&navg->atomList.list);
+			printf("("); // Abertura
+			show(navg->atomList.list);
+			printf(")"); // Fechamento
 			//printf(" () ");
 		}
 		if(navg->next == NULL){
@@ -88,11 +100,50 @@ void show(Node **list){
 		}
 	}
 	
-	printf(")"); // Fechamento
+	
+}
+void showMe( Node *list){
+	printf("(");
+	show(list);
+	printf(")");
+}
+void ln(){
+	printf("\n");
 }
 bool search(Node *list, int atom){
-	
+	Node *h = list;
+	if(h == NULL) return false;
+	int a = 1;
+	while(a){
+		if(h->type == 0){ // comparando atomo
+			if(h->atomList.atom == atom) return true;
+		} else { // entrnado lista
+			if( search(h, atom) ){
+				return true; break;
+			}
+		}
+		h = h->next;
+		if(h == NULL){
+			return false;
+		}
+	}
 }
 int depth(Node *list){
+	Node *h = list;
+	int dN = 0, a = 1, c, c2 = -1;
+	if(h == NULL) return 0;
 	
+	while(a){
+		// conferir na lista profundidade
+		if(h->type==1){
+			c = depth(h->atomList.list);
+			c +1;
+			if(c > c2) c2 = c;
+		}
+		h = h->next;
+		
+		
+		if(h == NULL)break;
+	}
+	return c2+1;
 }
