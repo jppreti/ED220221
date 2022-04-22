@@ -3,6 +3,34 @@
 #include "GeneralizedLinkedList.h"
 #include "log.h"
 
+int main() {
+	log_set_level(LOG_TRACE);
+	Node *list = NULL;
+	Node *list2 = NULL;
+	addAtom(&list,1);
+	addAtom(&list2,2);
+	addAtom(&list2,3);
+	addList(&list,&list2);
+	addAtom(&list,4);
+	addAtom(&list,5);
+	addAtom(&list2,6);
+	printf("Lista 1 : ");
+	show(&list);
+	printf("\nLista 2 : ");
+	show(&list2);
+	printf("\nCabeça Lista 1 : ");
+	head(&list);
+	printf("\nCalda Lista 1 : ");
+	tail(&list);
+	printf("\nCabeça Lista 2 : ");
+	head(&list2);
+	printf("\nCalda Lista 2 : ");
+	tail(&list2);
+	//printf("\nCabeça da Calda Lista 2 : ");
+	//head(tail(&list2));
+	printf("\n");
+}
+
 int addAtom(Node **list, int atom) {
     Node *newNode = (Node*)malloc(sizeof(Node));
     if (newNode==NULL) return -1;
@@ -49,7 +77,7 @@ Node* head(Node **list){
 	if(aux->type==0){
 		printf("%d", aux->atomList.atom );
 	}else{
-		show(&aux->atomList.list);
+		head(&aux->atomList.list);
 	}
 	printf(")");
 }
@@ -60,12 +88,12 @@ Node* tail(Node **list){
     while (aux->next != NULL) {//enquanto não for o último nó
 		if (aux->next->type == 0){
         	printf("%d", aux->next->atomList.atom); 
-		}else {
+		}else{
 			tail(&aux->next->atomList.list);
 		}
-    	if(aux->next == NULL){
+    	if(aux->next->next == NULL){
 			break;
-		} else {
+		}else{
 			printf(",");
 			aux = aux->next;
 		} 
@@ -90,30 +118,4 @@ void show(Node **list){
 		} 
 	}
 	printf(")");
-}
-
-int main() {
-	log_set_level(LOG_TRACE);
-	Node *list = NULL;
-	Node *list2 = NULL;
-	addAtom(&list,1);
-	addAtom(&list2,2);
-	addAtom(&list2,3);
-	addList(&list,&list2);
-	addAtom(&list,4);
-	printf("Lista 1 : ");
-	show(&list);
-	printf("\nLista 2 : ");
-	show(&list2);
-	printf("\nCabeça Lista 1 : ");
-	head(&list);
-	printf("\nCalda Lista 1 : ");
-	tail(&list);
-	printf("\nCabeça Lista 2 : ");
-	head(&list2);
-	printf("\nCalda Lista 2 : ");
-	tail(&list2);
-	//printf("\nCabeça da Calda Lista 2 : ");
-	//head(tail(&list2));
-	printf("\n");
 }
