@@ -171,21 +171,19 @@ int depth(Node **list){
 
 /*bool search(Node **list, int atom){
 	Node *aux = *list;
-	while (aux!= NULL ) {
-		if (aux->type == 0 ){
-			if (aux->atomList.atom == atom){
-				return aux->atomList.atom;
-			}else{
-				aux=aux->next;
-			}
-		}else {
-			int x = search(&aux->atomList.list,atom);
-			if (x != NULL){
-				return x;
-			}else{
-				aux=aux->next;
+	if(aux == NULL) return false;
+	int x = 1;
+	while(x){
+		if(aux->type == 0){ 
+			if(aux->atomList.atom == atom) return true;
+		} else { 
+			if(search(&aux->atomList.list, atom) ){
+				return true; break;
 			}
 		}
+		aux = aux->next;
+		if(aux == NULL){
+			return false;
+		}
 	}
-	return NULL;
 }*/
