@@ -21,7 +21,7 @@ int addList(Node **list, Node **subList);
 Node* head(Node **list);
 Node* tail(Node **list);
 void show(Node **list);
-bool search(Node *list, int atom);
-int depth(Node *list);
+bool search(Node **list, int atom);
+int depth(Node **list);
 
 #endif
