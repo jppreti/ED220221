@@ -25,11 +25,11 @@ int main() {
 	show(&list);
 	printf("\nProfundidade de L = %d", depth(&list));
 	printf("\nhead(L) = ");
-	head(&list);
+	head(list);
 	printf("\ntail(L) = ");
-	tail(&list);
+	tail(list);
 	printf("\nhead(tail(L)) = ");
-	//head(tail(&list));	
+	//head(tail(list));	
 	printf("\nExemplo 2 --------------");
 	addAtom(&list4,1);
 	addAtom(&list4,2);
@@ -41,9 +41,9 @@ int main() {
 	show(&list3);
 	printf("\nProfundidade de L = %d", depth(&list3));
 	printf("\nhead(L) = ");
-	head(&list3);
+	head(list3);
 	printf("\ntail(L) = ");
-	tail(&list3);	
+	tail(list3);	
 	printf("\nhead(tail(L)) = ");
 	//head(tail(list3));
 	printf("\nhead(head(tail(L))) = ");
@@ -64,6 +64,9 @@ int main() {
 	printf("\nL = ");
 	show(&list6);
 	printf("\nProfundidade de L = %d", depth(&list6));
+//	int valor = 7;
+//	Node* removido = buscar(&list, valor);
+//	printf(" %d \n", removido);
 	printf("\n");
 }
 
@@ -107,25 +110,25 @@ int addList(Node **list, Node **subList) {
     return 1;
 }
 
-Node* head(Node **list){	
-	Node *aux = *list;
+Node* head(Node *list){	
+	Node *aux = list;
 	printf("(");
 	if(aux->type==0){
 		printf("%d", aux->atomList.atom );
 	}else{
-		head(&aux->atomList.list);
+		head(aux->atomList.list);
 	}
 	printf(")");
 }
 
-Node* tail(Node **list){	
-	Node *aux = *list; 
+Node* tail(Node *list){	
+	Node *aux = list; 
 	printf("(");
     while (aux != NULL) {//enquanto não for o último nó
 		if (aux->next->type == 0){
         	printf("%d", aux->next->atomList.atom); 
 		}else{
-			tail(&aux->next->atomList.list);
+			tail(aux->next->atomList.list);
 		}
     	if(aux->next->next == NULL){
 			break;
@@ -173,7 +176,7 @@ int depth(Node **list){
 	Node *aux = *list;
 	if(aux == NULL) return false;
 	int x = 1;
-	while(x){
+	while(aux != NULL){
 		if(aux->type == 0){ 
 			if(aux->atomList.atom == atom) return true;
 		} else { 
@@ -186,4 +189,14 @@ int depth(Node **list){
 			return false;
 		}
 	}
+}
+
+Node* buscar(Node **list, int atom){
+    Node *aux = *list, *no = NULL;
+
+    while(aux && aux->atomList.atom != atom)
+        aux = aux->next;
+    if(aux)
+        no = aux;
+    return no;
 }*/
