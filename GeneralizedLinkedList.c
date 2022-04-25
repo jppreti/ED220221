@@ -22,14 +22,14 @@ int main() {
 	addAtom(&list,5);
 	printf("Exemplo 1 --------------");	
 	printf("\nL = ");
-	show(&list);
+	show(list);
 	printf("\nProfundidade de L = %d", depth(&list));
 	printf("\nhead(L) = ");
-	head(list);
+	show(head(list));
 	printf("\ntail(L) = ");
-	tail(list);
+	show(tail(list));
 	printf("\nhead(tail(L)) = ");
-	//head(tail(list));	
+	show(head(tail(list)));	
 	printf("\nExemplo 2 --------------");
 	addAtom(&list4,1);
 	addAtom(&list4,2);
@@ -38,16 +38,16 @@ int main() {
 	addAtom(&list5,4);
 	addList(&list3,&list5);
 	printf("\nL = ");
-	show(&list3);
+	show(list3);
 	printf("\nProfundidade de L = %d", depth(&list3));
 	printf("\nhead(L) = ");
-	head(list3);
+	show(head(list3));
 	printf("\ntail(L) = ");
-	tail(list3);	
+	show(tail(list3));	
 	printf("\nhead(tail(L)) = ");
-	//head(tail(list3));
+	show(head(tail(list3)));
 	printf("\nhead(head(tail(L))) = ");
-	//head(head(tail(&list3)));
+	show(head(head(tail(list3))));
 	printf("\nExemplo 3 --------------");		
 	addAtom(&list6,1);
 	addAtom(&list7,2);
@@ -62,7 +62,7 @@ int main() {
 	addList(&list6,&list10);
 	addAtom(&list6,8);
 	printf("\nL = ");
-	show(&list6);
+	show(list6);
 	printf("\nProfundidade de L = %d", depth(&list6));
 //	int valor = 7;
 //	Node* removido = buscar(&list, valor);
@@ -111,52 +111,20 @@ int addList(Node **list, Node **subList) {
 }
 
 Node* head(Node *list){	
-	Node *aux = list;
-	printf("(");
-	if(aux->type==0){
-		printf("%d", aux->atomList.atom );
+	Node *newNode = (Node*)malloc(sizeof(Node));
+    if (newNode==NULL) return NULL;
+    newNode->type = list->type;
+	if(list->type ==0){
+		newNode->atomList.atom = list->atomList.atom;
 	}else{
-		head(aux->atomList.list);
+		newNode->atomList.list = list->atomList.list;
 	}
-	printf(")");
+    newNode->next = NULL;
+	return newNode;	
 }
 
 Node* tail(Node *list){	
-	Node *aux = list; 
-	printf("(");
-    while (aux != NULL) {//enquanto não for o último nó
-		if (aux->next->type == 0){
-        	printf("%d", aux->next->atomList.atom); 
-		}else{
-			tail(aux->next->atomList.list);
-		}
-    	if(aux->next->next == NULL){
-			break;
-		}else{
-			printf(",");
-			aux = aux->next;
-		} 
-	}
-	printf(")");
-}
-
-void show(Node **list){
-	Node *aux = *list;  //aux aponta para o primeiro
-	printf("(");
-    while (aux != NULL) {//enquanto não for o último nó
-		if (aux->type == 0){
-        	printf("%d", aux->atomList.atom); 
-		}else {
-			show(&aux->atomList.list);
-		}
-    	if(aux->next == NULL){
-			break;
-		} else {
-			printf(",");
-			aux = aux->next;
-		} 
-	}
-	printf(")");
+	return list->next;
 }
 
 int depth(Node **list){
@@ -172,15 +140,15 @@ int depth(Node **list){
 	return max+1;
 }
 
-/*bool search(Node **list, int atom){
-	Node *aux = *list;
+bool search(Node *list, int atom){
+	Node *aux = list;
 	if(aux == NULL) return false;
 	int x = 1;
 	while(aux != NULL){
 		if(aux->type == 0){ 
 			if(aux->atomList.atom == atom) return true;
 		} else { 
-			if(search(&aux->atomList.list, atom) ){
+			if(search(aux->atomList.list, atom) ){
 				return true; break;
 			}
 		}
@@ -191,12 +159,21 @@ int depth(Node **list){
 	}
 }
 
-Node* buscar(Node **list, int atom){
-    Node *aux = *list, *no = NULL;
-
-    while(aux && aux->atomList.atom != atom)
-        aux = aux->next;
-    if(aux)
-        no = aux;
-    return no;
-}*/
+void show(Node *list){
+	Node *aux = list;  //aux aponta para o primeiro
+	printf("(");
+    while (aux != NULL) {//enquanto não for o último nó
+		if (aux->type == 0){
+        	printf("%d", aux->atomList.atom); 
+		}else {
+			show(aux->atomList.list);
+		}
+    	if(aux->next == NULL){
+			break;
+		} else {
+			printf(",");
+			aux = aux->next;
+		} 
+	}
+	printf(")");
+}
