@@ -126,35 +126,21 @@ Node* tail(Node *list){
 	return list->next;
 }
 
-/*int depth(Node *list){
-	Node *aux = list;
-	int max = 0;
-	while(aux != NULL) {
-		if(aux->type == 1) {
-			int n = depth(aux->atomList.list);
-			if(max<n)max=n;		
-		}
-		aux=aux->next;	
-	}
-	return max+1;
-}*/
-
 int depth(Node *list){
 	Node *aux = list;
-	int dN = 0, a = 1, c, c2 = -1;
+	int n1 = 1, n2, n3 = -1;
 	if(aux == NULL) return 0;
 	
-	while(a){
-		// conferir na lista profundidade
+	while(n1){
 		if(aux->type==1){
-			c = depth(aux->atomList.list);
-			c +1;
-			if(c > c2) c2 = c;
+			n2 = depth(aux->atomList.list);
+			n2 +1;
+			if(n2 > n3) n3 = n2;
 		}
 		aux = aux->next;
 		if(aux == NULL)break;
 	}
-	return c2+1;
+	return n3+1;
 }
 
 bool search(Node *list, int atom){
