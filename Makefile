@@ -1,4 +1,4 @@
-all: clear pointers list dlist hash blockchain
+all: clear pointers list dlist hash  genlist bst
 
 pointers:
 	@echo -e "\nCompilando ponteiros"
@@ -32,6 +32,18 @@ blockchain:
 	@echo -e "\nHabilitando execução"
 	chmod +x blockchain
 
+genlist:
+	@echo -e "\nCompilando Lista Generalizada"
+	gcc log.h log.c GeneralizedList.h GeneralizedList.c -std=c99 -o genlist
+	@echo -e "\nHabilitando execução"
+	chmod +x genlist
+
+bst:
+	@echo -e "\nCompilando Árvore de Busca Binária"
+	gcc BinarySearchTree.h BinarySearchTree.c BinarySearchTreeTest.c -std=c99 -o bst
+	@echo -e "\nHabilitando execução"
+	chmod +x bst
+
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
-	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain
+	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain genlist bst
