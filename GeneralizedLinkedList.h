@@ -1,11 +1,12 @@
 #ifndef DataStructure_GeneralizedLinkedList_h
 #define DataStructure_GeneralizedLinkedList_h
+#include <stdbool.h>
 
-enum boolean {
+/*enum boolean {
     true = 1, false = 0
 };
 
-typedef enum boolean bool;
+typedef enum boolean bool;*/
 
 typedef struct Node {
     int type; //0 atomo e 1 lista
@@ -22,6 +23,6 @@ Node* head(Node *list);
 Node* tail(Node *list);
 void show(Node *list);
 bool search(Node *list, int atom);
-int depth(Node **list);
+int depth(Node *list);
 
 #endif

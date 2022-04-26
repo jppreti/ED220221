@@ -23,7 +23,7 @@ int main() {
 	printf("Exemplo 1 --------------");	
 	printf("\nL = ");
 	show(list);
-	printf("\nProfundidade de L = %d", depth(&list));
+	printf("\nProfundidade de L = %d", depth(list));
 	printf("\nhead(L) = ");
 	show(head(list));
 	printf("\ntail(L) = ");
@@ -39,7 +39,7 @@ int main() {
 	addList(&list3,&list5);
 	printf("\nL = ");
 	show(list3);
-	printf("\nProfundidade de L = %d", depth(&list3));
+	printf("\nProfundidade de L = %d", depth(list3));
 	printf("\nhead(L) = ");
 	show(head(list3));
 	printf("\ntail(L) = ");
@@ -63,10 +63,9 @@ int main() {
 	addAtom(&list6,8);
 	printf("\nL = ");
 	show(list6);
-	printf("\nProfundidade de L = %d", depth(&list6));
-//	int valor = 7;
-//	Node* removido = buscar(&list, valor);
-//	printf(" %d \n", removido);
+	printf("\nProfundidade de L = %d", depth(list6));
+	printf("\nBusca 5 na list9 = %d ", search(list9, 5));
+	printf("\nBusca 4 na list5 = %i ", search(list5, 4));
 	printf("\n");
 }
 
@@ -127,17 +126,35 @@ Node* tail(Node *list){
 	return list->next;
 }
 
-int depth(Node **list){
-	Node *aux = *list;
+/*int depth(Node *list){
+	Node *aux = list;
 	int max = 0;
 	while(aux != NULL) {
 		if(aux->type == 1) {
-			int n = depth(&aux->atomList.list);
+			int n = depth(aux->atomList.list);
 			if(max<n)max=n;		
 		}
 		aux=aux->next;	
 	}
 	return max+1;
+}*/
+
+int depth(Node *list){
+	Node *aux = list;
+	int dN = 0, a = 1, c, c2 = -1;
+	if(aux == NULL) return 0;
+	
+	while(a){
+		// conferir na lista profundidade
+		if(aux->type==1){
+			c = depth(aux->atomList.list);
+			c +1;
+			if(c > c2) c2 = c;
+		}
+		aux = aux->next;
+		if(aux == NULL)break;
+	}
+	return c2+1;
 }
 
 bool search(Node *list, int atom){
@@ -148,7 +165,7 @@ bool search(Node *list, int atom){
 		if(aux->type == 0){ 
 			if(aux->atomList.atom == atom) return true;
 		} else { 
-			if(search(aux->atomList.list, atom) ){
+			if(search(aux, atom) ){
 				return true; break;
 			}
 		}
