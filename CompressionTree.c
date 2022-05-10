@@ -35,25 +35,27 @@ void add(list **lista, char *c){
 	if(anchor == NULL){
 		log_trace("Ancora vazia");
 		// gravando
-		anchor = (list*) malloc(sizeof(list));
+		*lista = malloc(sizeof(list));
 		Nodd->f = 1;
 		Nodd->w = c;
-		anchor->nucleo = Nodd;
-		anchor->next = NULL;
+		(*lista)->nucleo = Nodd;
+		(*lista)->next = NULL;
 		log_trace("/Ancora vazia");
 	}else{
 		while(1){
-			if(anchor->nucleo->w == c){
+			if(*(anchor->nucleo->w) == *c){
 				log_trace("Somando 1");
 				anchor->nucleo->f += 1;
 				break;
 			}else if(anchor->next == NULL){
 				log_trace("adicionando node na lista");
 				list *l = (list*) malloc(sizeof(list));
+				anchor->next = l;
 				l->nucleo = Nodd;
 				l->nucleo->w = c;
 				l->nucleo->f = 1;
 				l->next = NULL;
+				break;
 			} else {
 				log_trace("Ancora->proximo");
 				anchor = anchor->next;
@@ -63,18 +65,13 @@ void add(list **lista, char *c){
 return;}
 
 void exb(list *lista){
-	list *l = (list*) malloc(sizeof(list));
-	l = lista;
-	while(1){
-		if(l == NULL){
-			printf("FIM");
-			break;
-		}else{
-			log_trace("Print do nucleo");
-			printf("%s, %d", l->nucleo->w, l->nucleo->f);
-		}
+	list *l = lista;
+	while(l != NULL){
+		log_trace("Print do nucleo");
+		printf("\n( %s, %d )", l->nucleo->w, l->nucleo->f);
+		l = l->next;
 	}
-return;}
+}
 
 
 void main () {
@@ -98,10 +95,11 @@ void main () {
 		c = fgetc(arq);
     	if( feof(arq) )break;
 		log_trace("Converter int para char");
-		char w = c;
-		add(&l, &w);
+		char *w = malloc(sizeof(char));
+		*w = c;
+		add(&l, w);
 		printf("%c", c);
-	}
+	}printf("\n");
 	fclose(arq);
 	
 	exb(l);
