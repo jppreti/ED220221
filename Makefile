@@ -37,7 +37,20 @@ geralList:
 	gcc log.h log.c GLinkList.c GLinkList.h GLinkListTest.c -std=c99 -o geralList
 	@echo -e "\nHabilitando execução"
 	chmod +x geralList
+	
+BST:
+	@echo -e "\nCompilando By List"
+	gcc log.h log.c BinarySearchTree.c BinarySearchTree.h BinarySearchTreeTest.c -std=c99 -o BST
+	@echo -e "\nHabilitando execução"
+	chmod +x BST
+
+	
+CT:
+	@echo -e "\nCompilando By List"
+	gcc log.h log.c CompressionTree.c -std=c99 -o CT
+	@echo -e "\nHabilitando execução"
+	chmod +x CT
 
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
-	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain geralList
+	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain geralList BST CT

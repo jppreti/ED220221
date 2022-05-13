@@ -73,6 +73,25 @@ void exb(list *lista){
 	}
 }
 
+void org(list *lista){
+	log_trace("ORG");
+	list *l = lista;
+	list *navg;
+	Node *n;
+	log_trace("NAV");
+	while(l != NULL){
+		navg = l->next;
+		while(navg != NULL){
+			if(l->nucleo->f < navg->nucleo->f){
+				n = l->nucleo;
+				l->nucleo = navg->nucleo;
+				navg->nucleo = n;
+			}
+			navg = navg->next;
+		}
+		l = l->next;
+	}
+}
 
 void main () {
 	log_set_level(LOG_TRACE);
@@ -102,6 +121,8 @@ void main () {
 	}printf("\n");
 	fclose(arq);
 	
+	exb(l);
+	org(l);
 	exb(l);
 	///int fgetc(FILE *stream)
 	
