@@ -1,4 +1,4 @@
-all: clear pointers list dlist hash blockchain traberiseufelipe glist
+all: clear pointers list dlist hash blockchain traberiseufelipe glist ctree
 
 pointers:
 	@echo -e "\nCompilando ponteiros"
@@ -26,6 +26,12 @@ glist:
 	@echo -e "\nHabilitando execução"
 	chmod +x glist	
 
+ctree:
+	@echo -e "\nCompilando Compressão em Árvore"
+	gcc log.h log.c CompressaoArvore.h CompressaoArvore.c -std=c99 -o ctree
+	@echo -e "\nHabilitando execução"
+	chmod +x ctree
+
 hash:
 	@echo -e "\nCompilando Hash"
 	gcc log.h log.c DoublyLinkedList.h DoublyLinkedList.c Hash.h Hash.c HashTest.c -std=c99 -o hash
@@ -46,4 +52,4 @@ blockchain:
 
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
-	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain glist traberiseufelipe 
+	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain glist traberiseufelipe ctree
