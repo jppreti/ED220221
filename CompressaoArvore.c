@@ -360,10 +360,10 @@ int main() {
 	printf("\nTEXTO:\n%s\n", texto);
 	
 	codificado = codificar(dicionario, texto);
-	//printf("\n\tTexto codificado: %s\n", codificado);s
+	printf("\n\tTexto codificado: %s\n", codificado);s
 	
 	decodificado = decodificar(codificado, arvore);
-	//printf("\n\tTexto decodificado: %s\n", decodificado);
+	printf("\n\tTexto decodificado: %s\n", decodificado);
 	
 	compactar(codificado);
 	
