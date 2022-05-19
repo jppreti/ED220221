@@ -234,7 +234,7 @@ char* decodificar(unsigned char texto[], No *raiz){
 }
 
 void compactar(unsigned char str[]){
-	FILE *arquivo = fopen("compactado.ef", "wb");
+	FILE *arquivo = fopen("doc/compactado.wg", "wb");
 	int i = 0, j = 7;
 	unsigned char mascara, byte = 0;
 	if(arquivo){
@@ -266,7 +266,7 @@ unsigned int eh_bit_um(unsigned char byte, int i){
 }
 
 void descompactar(No *raiz){
-	FILE *arquivo = fopen("compactado.ef", "rb");
+	FILE *arquivo = fopen("doc/compactado.wg", "rb");
 	No *aux = raiz;
 	unsigned char byte;
 	int i;
@@ -289,13 +289,44 @@ void descompactar(No *raiz){
 		printf("\nErro ao abrir o arquivo em descompactar\n");
 }
 
+int descobrir_tamanho(){
+	FILE *arq = fopen("doc/texto.txt", "r");
+	int tam = 0;
+	if(arq){
+		while(fgetc(arq) != -1)
+			tam++;
+		fclose(arq);
+	}	
+	else
+		printf("\nErro ao abrir arquivo em descobrir_tamanho");
+	return tam;
+}
+
+void ler_texto(unsigned char *texto){
+	FILE *arq = fopen("doc/texto.txt", "r");
+	char letra;
+	int i = 0;
+	if(arq){
+		while(!feof(arq)){
+			letra = fgetc(arq);
+			if(letra){
+				texto[i] = letra;
+				i++;
+			}
+		}
+		fclose(arq);
+	}else
+		printf("\nErro ao abrir arquivo em ler_texto\n");
+}
+
 int main() {
 	log_set_level(LOG_INFO);
-	unsigned char texto[] = "Vamos aprender programação!";
+	//unsigned char texto[] = "Vamos aprender programação!";
+	unsigned char *texto;
     unsigned int tabela_frequencia[TAM];
  	Lista lista;
 	No *arvore;
-	int colunas;
+	int colunas, tam;
 	char **dicionario;
 	char *codificado, *decodificado;
 	
@@ -316,16 +347,32 @@ int main() {
 	colunas = altura_arvore(arvore) + 1;
 	
 	dicionario = aloca_dicionario(colunas);
-	log_trace("Entrando em gerar_dicionario");
+	//log_trace("Entrando em gerar_dicionario");
 	gerar_dicionario(dicionario, arvore, "", colunas);
-	log_trace("Entrando em imprime_dicionario");
+	//log_trace("Entrando em imprime_dicionario");
 	imprime_dicionario(dicionario);
 	
+	
+	tam = descobrir_tamanho();
+	printf("\nQuantidade: %d\n", tam);
+	texto = calloc(tam + 2, sizeof(unsigned char));
+	ler_texto(texto);
+	printf("\nTEXTO:\n%s\n", texto);
+	
 	codificado = codificar(dicionario, texto);
-	printf("\n\tTexto codificado: %s\n", codificado);
+	//printf("\n\tTexto codificado: %s\n", codificado);s
 	
 	decodificado = decodificar(codificado, arvore);
-	printf("\n\tTexto decodificado: %s\n", decodificado);
+	//printf("\n\tTexto decodificado: %s\n", decodificado);
 	
+	compactar(codificado);
+	
+	printf("\nARQUIVO DESCOMPACTADO\n");
+	
+	descompactar(arvore);
+	printf("\n\n");
+	free(texto);
+	free(codificado);
+	free(decodificado);
     return 0;
 }
