@@ -332,6 +332,12 @@ int main() {
 	
 	setlocale(LC_ALL,"");
 	
+	tam = descobrir_tamanho();
+	printf("\nQuantidade: %d\n", tam);
+	texto = calloc(tam + 2, sizeof(unsigned char));
+	ler_texto(texto);
+	printf("\nTEXTO:\n%s\n", texto);
+	
 	inicializa_tab_com_zero(tabela_frequencia);
 	preenche_tab_frequencia(texto, tabela_frequencia);
 	imprime_tab_frequencia(tabela_frequencia);
@@ -352,15 +358,8 @@ int main() {
 	//log_trace("Entrando em imprime_dicionario");
 	imprime_dicionario(dicionario);
 	
-	
-	tam = descobrir_tamanho();
-	printf("\nQuantidade: %d\n", tam);
-	texto = calloc(tam + 2, sizeof(unsigned char));
-	ler_texto(texto);
-	printf("\nTEXTO:\n%s\n", texto);
-	
 	codificado = codificar(dicionario, texto);
-	printf("\n\tTexto codificado: %s\n", codificado);s
+	printf("\n\tTexto codificado: %s\n", codificado);
 	
 	decodificado = decodificar(codificado, arvore);
 	printf("\n\tTexto decodificado: %s\n", decodificado);
