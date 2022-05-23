@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1650764187 source:c:\users\evera\onedrive\documentos\trasito\lista generalizada\main.c
+	<stdio.h>
+	<stdlib.h>
+	"GeneralizedLinkedList.h"
+
+1650764245 c:\users\evera\onedrive\documentos\trasito\lista generalizada\generalizedlinkedlist.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
+1650763635 c:\users\evera\onedrive\documentos\trasito\lista generalizada\log.h
+	<stdio.h>
+	<stdarg.h>
+	<stdbool.h>
+	<time.h>
+	"log.h"
+
+1650763077 source:c:\users\evera\onedrive\documentos\trasito\lista generalizada\generalizedlinkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	"GeneralizedLinkedList.h"
+	"log.h"
+
