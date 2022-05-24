@@ -5,11 +5,6 @@
 
 #include "log.h"
 
-// Quais carcateres presentes
-// Fazer frequencia de cada caractere
-// Fazer lista de caracteres por onde de maior incidencia
-// juntando os menores, mantendo a ordem pós soma.
-
 typedef struct Node {
     //char* w;
 	int* w;
@@ -45,9 +40,8 @@ void add(list **lista, int c){
 	if( ( *( l->nucleo->w) ) == c){
 			l->nucleo->f += 1;
 	return;}
-	
-add(&(l->next),c);}
-
+	add(&(l->next),c);
+}
 
 void exb(list *lista){
 	printf("\n");
@@ -68,7 +62,6 @@ void exb(list *lista){
 	}
 printf("\n");
 }
-
 
 void org(list *lista){ // organiza a lista, colocando os nucleos com maior frequencia na cabeça e os de menor na cauda
 	//log_trace("ORG");
@@ -118,12 +111,12 @@ void mesclar(list *lista){ // organiza a lista, colocando os nucleos com maior f
 	a->f = a->right->f + a->left->f; // sua frequencia
 	
 
-	printf("\n\n < %ls | %d > [ %ls | %d ]\n",a->right->w, *(a->right->w), a->left->w, *(a->left->w));
+	//printf("\n\n < %ls | %d > [ %ls | %d ]\n",a->right->w, *(a->right->w), a->left->w, *(a->left->w));
 	
 	int x = a->right->g;
 	int y = a->left->g;
 	a->g = x+y;
-	int i, z[y+x]; printf("%d  %d\n", x, y);
+	int i, z[y+x];// printf("%d  %d\n", x, y);
 	for ( i = 0; i<x; i++){
 		z[i] = (a->right->w)[i];
 	}
@@ -139,40 +132,8 @@ void mesclar(list *lista){ // organiza a lista, colocando os nucleos com maior f
 	free(l->next);
 	l->next = NULL;
 
-exb(lista);
+//exb(lista);
 }
-
-
-
-void arvore2(Node *center, int *base, int mais, int tam){
-	int i; // para os for's
-	 // cria o vetor um teco maior
-	int vet[tam];
-	if(tam != 0){
-		vet[tam-1] = mais;
-		if (tam!=1){
-			for(i=1;i<tam;i++){
-				vet[i-1] = base[i-1];
-			}
-		} 
-	}
-	if(center->right != NULL){ // caso tiver algo a direita aplique nele
-		log_trace("rigt");
-		arvore2( center->right, vet, 0, tam++);
-	}
-	if (center->left != NULL){ // caso estiver algo a esquerda aplique nele 
-		log_trace("left");
-		arvore2( center->left, vet, 1, tam++);
-	}
-	if ( (center->right == NULL) && (center->left == NULL) ) { // caso seja uma folha e nãto esteja apontando para mais ninguem. exiba!
-		printf("[ %c por: ", (center->w)[0]);
-		printf(" %d %d %d %d %d %d %d", vet[0], vet[1], vet[2], vet[3], vet [4], vet[5], vet[6]);
-		//for(i=0;i<tam;i++) printf(" %d ",vet[i]); // exibir sequencia de 0's e 1's
-		printf(" ]\n");
-	} 
-	
-return;}
-
 
 void arvore1(Node *center){
 	if(center->right != NULL){ // caso tiver algo a direita aplique nele
@@ -184,12 +145,45 @@ void arvore1(Node *center){
 		arvore1( center->left);
 	}
 	if ( (center->right == NULL) && (center->left == NULL) ) { // caso seja uma folha e nãto esteja apontando para mais ninguem. exiba!
-		printf(" : %c\n", (center->w)[0]);
+		printf(":[%c]\n", (center->w)[0]);
 	} 
+return;
+}
 
+
+void arvore2(Node *center, int *base, int uz, int tam){
+	int i , g = 1, resp = tam+1;
+	int right[resp], left[resp];
+	
+	if(tam != 0){ 
+		right[tam] = uz;
+		left[tam] = uz;
+	if(tam != 1){
+	for(i=0;i<tam;i++){
+		right[i] = base[i];
+		left[i] = base[i];
+	}
+	}
+	}
+	
+	if(center->right != NULL){ // caso tiver algo a direita aplique nele
+		g = 0;
+		arvore2( center->right, right, 0, resp);
+	}
+	if (center->left != NULL){ // caso estiver algo a esquerda aplique nele 
+		g = 0;
+		arvore2( center->left, left, 1, resp);
+	}
+	if (g) { // caso seja uma folha e nãto esteja apontando para mais ninguem. exiba!
+		printf("[ %c por: ", (center->w)[0]);
+		//printf("%d", left[0]);
+		for(i=1;i<resp;i++) printf("%d ",left[i]);
+		//printf("%d %d %d %d %d %d %d", left[0], left[1], left[2], left[3], left[4], left[5], left[6]);
+		//for(i=0;i<tam;i++) printf(" %d ",base[i]); // exibir sequencia de 0's e 1's
+		printf("]\n");
+	} 
+	
 return;}
-
-
 
 void main () {
 	log_set_level(LOG_INFO);
@@ -206,14 +200,13 @@ void main () {
 	//(list*) malloc(sizeof(list));
 	
 	// do programa que copiei / editado
-	int c;
+	int i;
 	while(1) {
-		c = fgetc(arq);
+		i = fgetc(arq);
 		if( feof(arq) )break;
-		if (c>0){
-			printf("[%d|%c]",c,c);
-			//int w[1] = {c};
-			add(&l, c);
+		if (i>0){
+			printf("[%d|%c]",i,i);
+			add(&l, i);
 		}
 		
 	}printf("\n");
@@ -224,7 +217,26 @@ void main () {
 	
 	printf("Folhas formadas:\n");
 	exb(l);
-	printf("\n\n");
+// Quantidade de Letras
+	int QuantidadeLetras = 0;
+	list *Navegacao = l;
+	while(Navegacao != NULL){
+		QuantidadeLetras++;
+		Navegacao = Navegacao->next;
+	}
+	printf("Quantidade de Letras:[ %d ]\n",QuantidadeLetras);
+// Letras Usadas
+	Navegacao = l;
+	int LetrasUsadas[QuantidadeLetras]; 
+	i=0;
+	while(Navegacao != NULL){
+		LetrasUsadas[i] = (Navegacao->nucleo->w)[0];
+		Navegacao = Navegacao->next; i++;
+	}
+	printf("Letras usadas: ");
+	for (i=0;i<QuantidadeLetras;i++)printf("%c ",LetrasUsadas[i]);
+	printf("\n");
+	
 	
 	while(l->next != NULL){
 		org(l);
@@ -232,12 +244,14 @@ void main () {
 	}
 	
 	
-	int *vet;
-	arvore1(l->nucleo);
+	int vet[5];
+	
+	//arvore1(l->nucleo);
     arvore2(l->nucleo, vet, 0, 0);
-	/*
-	list *l = (list*) malloc(sizeof(list));
-	printf("%p %p", l, l->nucleo);
-	0x55e1b2d1d260 (nil)
-	*/
+	
 }
+/*
+list *l = (list*) malloc(sizeof(list));
+printf("%p %p", l, l->nucleo);
+0x55e1b2d1d260 (nil)
+*/
