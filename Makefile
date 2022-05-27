@@ -51,6 +51,12 @@ CT:
 	@echo -e "\nHabilitando execução"
 	chmod +x CT
 
+AB:
+	@echo -e "\nCompilando By List"
+	gcc log.h log.c arvoreB.c -std=c99 -o AB
+	@echo -e "\nHabilitando execução"
+	chmod +x AB
+
 clear:
 	@echo -e "\nRemovendo arquivos objeto"
-	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain geralList BST CT
+	rm -f pointers pointers2 linkedlist doublylinkedlist hash blockchain geralList BST CT AB
